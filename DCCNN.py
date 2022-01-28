@@ -86,9 +86,7 @@ def mape(y_true, y_pred):
 
 def create_model():
     # 构建模型 LeNet
-    # channel 1 ：2-features：weibo、allpois
-    # conv(kernel_initializer=keras.initializers.glorot_uniform(seed=None))(input1)
-    # x = GlobalAveragePooling2D()(x)
+    # channel 1 ：2-features：check-in、POIs
 
     input1 = Input(batch_shape=(batchsize, 16, 16, 2))
     conv1_1 = Conv2D(4, (3, 3), activation='relu',
@@ -102,7 +100,7 @@ def create_model():
 
     flat1 = Flatten()(pool1_2)
 
-    # channel 2：1-feature : wpop
+    # channel 2：1-feature : population
     input2 = Input(batch_shape=(batchsize, 16, 16, 1))
     conv2_1 = Conv2D(2, (5, 5), activation='relu',
                      kernel_initializer=tf.glorot_normal_initializer())(input2)
@@ -115,10 +113,10 @@ def create_model():
 
     flat2 = Flatten()(pool2_2)
 
-    # input3：1-feature:cij
+    # input3：1-feature:spatial competition index
     input3 = Input(batch_shape=(batchsize, 1))
 
-    # input4：1-feature:road_dense
+    # input4：1-feature:road network density
     input4 = Input(batch_shape=(batchsize, 1))
 
     # merge
@@ -186,7 +184,7 @@ print("test_loss:", test_metrics[0])
 # print("test_RMSE:", test_metrics[1])
 print("test_R^2:", test_metrics[2])
 
-# 待预测数据 格网(数据集745)
+# 待预测数据 格网
 pre_grid = model.predict([feature_2, feature_1, cij, road_dense])
 
 # 数据归一化还原
@@ -238,7 +236,7 @@ data_pre = {'result': pre_grid.ravel(),
             'inverse_result(w)': inverse_pre_grid.ravel()}
 
 df = pd.DataFrame(data)
-df.to_csv('.../DA_DCCNN_800.csv', encoding='utf-8', index=False)
+df.to_csv('.../out_file.csv', encoding='utf-8', index=False)
 df_pre = pd.DataFrame(data_pre)
 df_pre.to_csv(file_out_pre + 'pre_result.csv', encoding='utf-8', index=False)
 
