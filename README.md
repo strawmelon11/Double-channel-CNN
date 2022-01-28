@@ -9,8 +9,8 @@ The input files included features of population data, check-in data, POIs, spati
 The output was the total monthly sales of all the retail stores in the region, and a model was constructed to express the relationship between market demand and site selection factors.
 
 ### Network structure
-![avatar](E:/Code/DCCNN/DCCNN structure.jpg)
-
+![](https://www.mdpi.com/ijgi/ijgi-09-00357/article_deploy/html/images/ijgi-09-00357-g007-550.jpg
+)
 ### pubilication
 *Site Selection Improvement of Retailers Based on Spatial Competition Strategy and a Double-Channel Convolutional Neural Network*
 
